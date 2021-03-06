@@ -104,11 +104,11 @@ h1 {
 	}
 }
 
-.btn-info-link {
+.weather-city, .weather-temperature, .weather-description, .weather-icon {
 	width: 20%;
 }
 
-.btn-info {
+.weather-info {
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
@@ -136,7 +136,7 @@ h1 {
 	top: 15px;
 }
 
-.weather-icon {
+.weather-icon-id {
 	width: 80px;
 	height: 80px;
 }

@@ -2,14 +2,14 @@ function weatherGeolocation() {
   navigator.geolocation.getCurrentPosition(success, error);
   function success(position) {
     const KEY = "1ab169792d0060c67103adb8adfbfd98";
-
+    console.log(position);
     const LAT = position.coords.latitude;
     const LNG = position.coords.longitude;
     let url = `http://api.positionstack.com/v1/reverse?access_key=${KEY}&query=${LAT},${LNG}`;
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data);
+        console.log(data);
         getWeather(data.data[0].locality);
       })
       .catch((err) => console.warn(err.message));
@@ -42,18 +42,19 @@ async function getWeather(city) {
   )
     .then((response) => response.json())
     .then((json) => {
+      console.log(json);
       temp = json.main?.temp;
       container.innerHTML = ` 
             <h1>Weather</h1>
             <div class="weater-day">
-                <div class="btn-info"><span class="btn-info-link">City:</span><p>${json.name}</p></div> 
-                <div class="btn-info"><span class="btn-info-link">Temperature:</span><p><span class="temperature-value">${temp}</span>  <select class="temperature-select" id="select-temeprature">
+                <div class="weather-info"><span class="weather-city">City:</span><p>${json.name}</p></div> 
+                <div class="weather-info"><span class="weather-temperature">Temperature:</span><p><span class="temperature-value">${temp}</span>  <select class="temperature-select" id="select-temeprature">
                 <option value="Celsius" checked>C &deg</option>
                 <option value="Fahrenheit">F &deg</option>
                                                                                                           
                                                                                                                 </select></p></div>
-              <div class="btn-info"><span class="btn-info-link">Description:</span> <p>${json.weather[0]?.description}</p></div> 
-              <div class="btn-info"><span class="btn-info-link">Icon:</span> <p><img src ="icons/${json.weather[0].icon}.png" class= "weather-icon"></p></div>
+              <div class="weather-info"><span class="weather-description">Description:</span> <p>${json.weather[0]?.description}</p></div> 
+              <div class="weather-info"><span class="weather-icon">Icon:</span> <p><img src ="icons/${json.weather[0].icon}.png" class= "weather-icon-id"></p></div>
               
               </div>
   `;
@@ -67,16 +68,16 @@ async function getWeather(city) {
 
     let value = evt.target.value;
     console.log(value);
-    let selectFarenheit = document.querySelector(
+    let valueOfTemperature = document.querySelector(
       ".temperature-value"
     );
     if (value === TEMPERATURES.F) {
       // selectFarenheit.innerText=(+selectFarenheit.innerHTML.substr(0,selectFarenheit.innerHTML.indexOf('<'))*9/5)+32
       temp = (temp * 9) / 5 + 32;
-      selectFarenheit.innerText = temp;
+      valueOfTemperature.innerText = temp;
     } else {
       temp = ((temp - 32) * 5) / 9;
-      selectFarenheit.innerText = Math.floor(temp);
+      valueOfTemperature.innerText = Math.floor(temp);
     }
   }
 }
@@ -104,8 +105,6 @@ checkbox.addEventListener("change", function () {
 function getWeaterDay() {
   let weatherContainer = document.querySelector(".weather-container");
   let checkbox = document.querySelector(".check_update_temp");
-  // let celsusOfDay = document.querySelector(".btn-celsus-24hours")
-  // let forcast = document.querySelector(".N-forcast-hours");
   let checkText = document.querySelector(".check-text");
 
   if (weatherContainer.style.display === "" || weatherContainer.style.display === "none") {
