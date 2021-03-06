@@ -14,7 +14,7 @@ function weatherGeolocation() {
       })
       .catch((err) => console.warn(err.message));
   }
-  const container = document.querySelector(".container");
+  const container = document.querySelector(".weather-container");
 
   function error() {
     container.innerHTML = "Unable to retrieve your location";
@@ -36,7 +36,7 @@ function weatherGeolocation() {
 let temp = 0;
 
 async function getWeather(city) {
-  const container = document.querySelector(".container");
+  const container = document.querySelector(".weather-container");
   await fetch(
     `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=74a665a048c561f4915b972e7e62bde4&units=metric`
   )
@@ -47,9 +47,9 @@ async function getWeather(city) {
             <h1>Weather</h1>
             <div class="weater-day">
                 <div class="btn-info"><span class="btn-info-link">City:</span><p>${json.name}</p></div> 
-                <div class="btn-info"><span class="btn-info-link">Temperature:</span><p><span class="temperature-farenheit-and-c">${temp}</span>  <select class="temperature-select" id="select-temeprature">
-                <option value="C" checked>C &deg</option>
-                <option value="F">F &deg</option>
+                <div class="btn-info"><span class="btn-info-link">Temperature:</span><p><span class="temperature-value">${temp}</span>  <select class="temperature-select" id="select-temeprature">
+                <option value="Celsius" checked>C &deg</option>
+                <option value="Fahrenheit">F &deg</option>
                                                                                                           
                                                                                                                 </select></p></div>
               <div class="btn-info"><span class="btn-info-link">Description:</span> <p>${json.weather[0]?.description}</p></div> 
@@ -60,12 +60,17 @@ async function getWeather(city) {
     });
   document.getElementById("select-temeprature").onchange = handleChange;
   function handleChange(evt) {
+    const TEMPERATURES = {
+      C:"Celsius",
+      F:"Fahrenheit"
+    };
+
     let value = evt.target.value;
     console.log(value);
     let selectFarenheit = document.querySelector(
-      ".temperature-farenheit-and-c"
+      ".temperature-value"
     );
-    if (value === "F") {
+    if (value === TEMPERATURES.F) {
       // selectFarenheit.innerText=(+selectFarenheit.innerHTML.substr(0,selectFarenheit.innerHTML.indexOf('<'))*9/5)+32
       temp = (temp * 9) / 5 + 32;
       selectFarenheit.innerText = temp;
@@ -97,18 +102,18 @@ checkbox.addEventListener("change", function () {
 });
 
 function getWeaterDay() {
-  let container = document.querySelector(".container");
+  let weatherContainer = document.querySelector(".weather-container");
   let checkbox = document.querySelector(".check_update_temp");
   // let celsusOfDay = document.querySelector(".btn-celsus-24hours")
-  let forcast = document.querySelector(".N-forcast-hours");
+  // let forcast = document.querySelector(".N-forcast-hours");
   let checkText = document.querySelector(".check-text");
 
-  if (container.style.display === "" || container.style.display === "none") {
-    container.style.display = "block";
+  if (weatherContainer.style.display === "" || weatherContainer.style.display === "none") {
+    weatherContainer.style.display = "block";
     checkbox.style.display = "block";
     checkText.style.color = "black";
   } else {
-    container.style.display = "none";
+    weatherContainer.style.display = "none";
     checkbox.style.display = "none";
     checkText.style.color = "#12D3E5";
   }
