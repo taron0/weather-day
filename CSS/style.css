@@ -19,7 +19,7 @@ body {
 		width: 40%;
 		border-radius: 10px;
 		padding-top: 5px;
-		margin: 60px auto;
+		margin: 25px auto;
 		background-size: cover;
 		background: #12d3e5;
 		min-height: 150px;
@@ -34,7 +34,7 @@ body {
 		min-height: 150px;
 		border-radius: 10px;
 		padding-top: 5px;
-		margin: 60px auto;
+		margin: 25px auto;
 		background-size: cover;
 		background: #12d3e5;
 	}
@@ -76,7 +76,7 @@ h1 {
 	color: #12d3e5;
 	font-weight: bold;
 }
-
+ 
 @media (min-width: 1300px) {
 	p {
 		width: 75%;
@@ -118,25 +118,15 @@ h1 {
 	text-align: center;
 }
 
-.update_context_temp {
-	display: flex;
-	max-width: 600px;
-	margin: 0 auto;
-	align-items: center;
-}
 
 .see-weater {
-	margin: 0 auto;
-	position: absolute;
-	left: 0;
-	right: 0;
+	margin: 25px auto;
 	height: 40px;
 	border: 0;
 	background: #0b486b;
 	color: white;
 	font-size: 18px;
 	text-transform: uppercase;
-	top: 15px;
 }
 
 .loading_container {
@@ -153,4 +143,28 @@ h1 {
 	background-color: #acb6e5;
 	color: white;
 	text-align: center;
+}
+
+.container-header-btn{
+   display: flex;
+   justify-content: space-around;
+   flex-wrap: wrap;	
+   margin: 0 auto;
+   flex-direction: column-reverse;
+   max-width: 490px;
+}
+
+.btn-see-container{
+	width: 300px;
+	margin: 0 auto;
+    text-align: center;
+}
+
+.update_context_temp{
+	display: flex;
+	margin: 0 auto;
+	text-align: center;
+    justify-content: center;
+	align-items: center;
+	width: 300px;
 }
