@@ -1,29 +1,29 @@
 function weatherGeolocation() {
-  navigator.geolocation.getCurrentPosition(success, error);
+    navigator.geolocation.getCurrentPosition(success, error);
 
-  function success(position) {
-      const KEY = "1ab169792d0060c67103adb8adfbfd98";
-      console.log(position);
-      const LAT = position.coords.latitude;
-      const LNG = position.coords.longitude;
-      let url = `http://api.positionstack.com/v1/reverse?access_key=${KEY}&query=${LAT},${LNG}`;
-      fetch(url)
-          .then((response) => response.json())
-          .then((data) => {
-              console.log(data);
-              if (data.data[0].locality) {
-                  getWeather(data.data[0].locality);
-              }
-          })
-          .catch((err) => console.warn(err.message));
-  }
-  const container = document.querySelector(".weather-container");
+    function success(position) {
+        const KEY = "1ab169792d0060c67103adb8adfbfd98";
+        console.log(position);
+        const LAT = position.coords.latitude;
+        const LNG = position.coords.longitude;
+        let url = `http://api.positionstack.com/v1/reverse?access_key=${KEY}&query=${LAT},${LNG}`;
+        fetch(url)
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                if (data.data[0].locality) {
+                    getWeather(data.data[0].locality);
+                }
+            })
+            .catch((err) => console.warn(err.message));
+    }
+    const container = document.querySelector(".weather-container");
 
-  function error() {
-      container.innerHTML = "<div class='error-info-geocode'>Unable to retrieve your location</div>";
-  }
+    function error() {
+        container.innerHTML = "<div class='error-info-geocode'>Unable to retrieve your location</div>";
+    }
 
-  container.innerHTML = `<div class="loading_container">
+    container.innerHTML = `<div class="loading_container">
 <svg xmlns="http://www.w3.org/2000/svg" id="motasl_logo" class="center" width="440.88" height="434" viewBox="0 0 440.88 434">
 <mask id="archMask">
 <path id="mask" d="M366.5,100.5s-122-2-161,9-88,50-94,58-27.78,36.63-29,83c-1,38-5,63,19,108s81,69,98,75,61,12,99,4,76-56,88-67,29-40,36-83c7.43-45.67,7-52,7-52" transform="translate(-35.13 -53.86)" ></path>
@@ -39,15 +39,15 @@ function weatherGeolocation() {
 let temp = 0;
 
 async function getWeather(city) {
-  const container = document.querySelector(".weather-container");
-  await fetch(
-          `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=74a665a048c561f4915b972e7e62bde4&units=metric`
-      )
-      .then((response) => response.json())
-      .then((json) => {
-          console.log(json);
-          temp = json.main?.temp;
-          container.innerHTML = ` 
+    const container = document.querySelector(".weather-container");
+    await fetch(
+            `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=74a665a048c561f4915b972e7e62bde4&units=metric`
+        )
+        .then((response) => response.json())
+        .then((json) => {
+            console.log(json);
+            temp = json.main?.temp;
+            container.innerHTML = ` 
           <h1>Weather</h1>
           <div class="weater-day">
               <div class="weather-info"><span class="weather-city">City:</span><p>${json.name}</p></div> 
@@ -61,63 +61,63 @@ async function getWeather(city) {
             
             </div>  
 `;
-      });
-  document.getElementById("select-temeprature").onchange = handleChange;
+        });
+    document.getElementById("select-temeprature").onchange = handleChange;
 
-  function handleChange(evt) {
-      const TEMPERATURES = {
-          C: "Celsius",
-          F: "Fahrenheit"
-      };
+    function handleChange(evt) {
+        const TEMPERATURES = {
+            C: "Celsius",
+            F: "Fahrenheit"
+        };
 
-      let value = evt.target.value;
-      console.log(value);
-      let valueOfTemperature = document.querySelector(
-          ".temperature-value"
-      );
-      if (value === TEMPERATURES.F) {
-          temp = (temp * 9) / 5 + 32;
-          valueOfTemperature.innerText = temp;
-      } else {
-          temp = ((temp - 32) * 5) / 9;
-          valueOfTemperature.innerText = Math.floor(temp);
-      }
-  }
+        let value = evt.target.value;
+        console.log(value);
+        let valueOfTemperature = document.querySelector(
+            ".temperature-value"
+        );
+        if (value === TEMPERATURES.F) {
+            temp = (temp * 9) / 5 + 32;
+            valueOfTemperature.innerText = temp;
+        } else {
+            temp = ((temp - 32) * 5) / 9;
+            valueOfTemperature.innerText = Math.floor(temp);
+        }
+    }
 }
 
 let time = null;
 const checkbox = document.querySelector(".check_update_temp");
 checkbox.addEventListener("change", function() {
-  console.log(checkbox.checked);
+    console.log(checkbox.checked);
 
-  if (checkbox.checked) {
-      time = setInterval(() => {
-          weatherGeolocation();
-      }, 60000);
-  } else {
-      clearInterval(time);
-  }
+    if (checkbox.checked) {
+        time = setInterval(() => {
+            weatherGeolocation();
+        }, 60000);
+    } else {
+        clearInterval(time);
+    }
 
-  if (checkbox.checked) {
-      return (checkbox.checked = true);
-  } else {
-      return (checkbox.checked = false);
-  }
+    if (checkbox.checked) {
+        return (checkbox.checked = true);
+    } else {
+        return (checkbox.checked = false);
+    }
 });
 
 function getWeaterDay() {
-  let weatherContainer = document.querySelector(".weather-container");
-  let checkbox = document.querySelector(".check_update_temp");
-  let checkText = document.querySelector(".check-text");
+    let weatherContainer = document.querySelector(".weather-container");
+    let checkbox = document.querySelector(".check_update_temp");
+    let checkText = document.querySelector(".check-text");
 
-  if (weatherContainer.style.display === "" || weatherContainer.style.display === "none") {
-      weatherContainer.style.display = "block";
-      checkbox.style.display = "block";
-      checkText.style.color = "black";
-  } else {
-      weatherContainer.style.display = "none";
-      checkbox.style.display = "none";
-      checkText.style.color = "#12D3E5";
-  }
-  weatherGeolocation();
+    if (weatherContainer.style.display === "" || weatherContainer.style.display === "none") {
+        weatherContainer.style.display = "block";
+        checkbox.style.display = "block";
+        checkText.style.color = "black";
+    } else {
+        weatherContainer.style.display = "none";
+        checkbox.style.display = "none";
+        checkText.style.color = "#12D3E5";
+    }
+    weatherGeolocation();
 }

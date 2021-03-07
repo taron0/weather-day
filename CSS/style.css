@@ -76,7 +76,7 @@ h1 {
 	color: #12d3e5;
 	font-weight: bold;
 }
- 
+
 @media (min-width: 1300px) {
 	p {
 		width: 75%;
@@ -118,7 +118,6 @@ h1 {
 	text-align: center;
 }
 
-
 .see-weater {
 	margin: 25px auto;
 	height: 40px;
@@ -145,26 +144,26 @@ h1 {
 	text-align: center;
 }
 
-.container-header-btn{
-   display: flex;
-   justify-content: space-around;
-   flex-wrap: wrap;	
-   margin: 0 auto;
-   flex-direction: column-reverse;
-   max-width: 490px;
+.container-header-btn {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	margin: 0 auto;
+	flex-direction: column-reverse;
+	max-width: 490px;
 }
 
-.btn-see-container{
+.btn-see-container {
 	width: 300px;
 	margin: 0 auto;
-    text-align: center;
+	text-align: center;
 }
 
-.update_context_temp{
+.update_context_temp {
 	display: flex;
 	margin: 0 auto;
 	text-align: center;
-    justify-content: center;
+	justify-content: center;
 	align-items: center;
 	width: 300px;
 }
